@@ -9,14 +9,28 @@ class Cult
         @location = location
         @founding_year = founding_year
         @slogan = slogan
-        Cult.all << self
+
+        @@all << self
     end
 
-    def recruit_follower
+    def recruit_follower(follower)
+        BloodOath.new("1232-23-23", follower, self)
+    end
+
+    def bloodoaths
+        BloodOath.all.select do |bloodoath_instance|
+            bloodoath_instance.cult == self
+        end
+    end
+
+    def followers
+        self.bloodoaths.map do |bloodoath_instance|
+            bloodoath_instance.follower
+        end
     end
 
     def cult_population
-
+       self.followers.count
     end
 
     def self.all
@@ -30,8 +44,7 @@ class Cult
     end
 
     def self.find_by_location(location)
-       new_array = []
-       new_array << self.all.select do |cult_instance|
+       self.all.select do |cult_instance|
             cult_instance.location == location
         end
     end
