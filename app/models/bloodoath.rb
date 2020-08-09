@@ -8,7 +8,7 @@ class BloodOath
         @date = date
         @follower = follower
         @cult = cult
-        
+
         @@all << self
     end
 
@@ -18,6 +18,10 @@ class BloodOath
 
     def self.all
         @@all
+    end
+
+    def self.first_oath
+        self.all.first.follower
     end
 
 

@@ -55,5 +55,31 @@ class Cult
         end
     end
 
+    def average_age
+        self.followers.sum do |followers_instance|
+            followers_instance.age.to_f / self.cult_population
+        end
+    end
+
+    def my_followers_mottos
+        self.followers.map do |followers_instance|
+        followers_instance.life_motto
+        end
+    end
+
+    def self.least_popular 
+        self.all.min_by do |cult_instance|
+            cult_instance.cult_population
+        end
+    end
+
+    def self.most_common_location
+        location_collection = self.all.map do |cult_instance|
+        cult_instance.location
+        end
+        location_collection.max_by do |location|
+            location_collection.count(location)
+        end
+    end
 
 end
